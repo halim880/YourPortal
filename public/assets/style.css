@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:wght@400;600;700&family=Philosopher:ital,wght@0,400;0,700;1,700&family=Poppins:wght@400;600;700&display=swap');
+
+
+:root {
+    --color-1:#5b58e8;
+	--color-2:#ffc600;
+	--color-3:#fc3c7f;
+	--color-4:#3fb7ef;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #4d4643;
+}
+a{
+    text-decoration: none;
+}
+
+
+
+ul{
+    list-style: none;
+}
+
+.navbar {
+    background-color: #1C2833 !important;
+}
+.navbar-brand {
+    color: white;
+    text-transform: uppercase;
+}
+.nav-item a {
+    color: lightgray;
+    text-transform: uppercase;
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.navbar a.active{
+    color: #2fc248 !important;
+}
+  
+.nav-item a:hover {
+    color: #2fc248 !important;
+    text-decoration: none;
+}
+
+
+
+#login_form,
+#registration_form{
+    height: 90vh;
+    background-color: #f3f6f7b0;
+}
+
+#login_form form,
+#registration_form form{
+    padding-top: 40px;
+    max-width: 500px;
+}
+
+#login_form form,
+#registration_form .form-heading{
+    color: rgb(91, 102, 112);
+    /* text-align: center; */
+}
+hr{
+    color: rgba(156, 155, 155, 0.932);
+}
+
+#footer_section{
+    background-color: #1C2833;
+}
+
+#footer_section h4 {
+    color: lightgrey;
+    font-size: 18px;
+}
+
+#footer_section a{
+    font-size: 14px;
+    text-decoration: none;
+    color: lightgray;
+}
+
+#footer_section a:hover{
+    color: #2fc248 !important;
+    text-decoration: none;
+}

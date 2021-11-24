@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:wght@400;600;700&family=Philosopher:ital,wght@0,400;0,700;1,700&family=Poppins:wght@400;600;700&display=swap');
+
+
+:root {
+    --primaryColor: rgb(12, 22, 53);
+    --color-1:#5b58e8;
+	--color-2:#ffc600;
+	--color-3:#fc3c7f;
+	--color-4:#3fb7ef;
+}
+
+.bg-appColor{
+	background-color: var(--primaryColor) !important;
+}

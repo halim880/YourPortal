@@ -25,7 +25,7 @@ class BussinessController extends Controller
      */
     public function create()
     {
-        //
+        return view('bussiness.create');
     }
 
     /**
@@ -39,12 +39,6 @@ class BussinessController extends Controller
         $request->store();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bussiness  $bussiness
-     * @return \Illuminate\Http\Response
-     */
     public function show(Bussiness $bussiness)
     {
         //

@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class BussinessRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
@@ -29,12 +24,12 @@ class BussinessRequest extends FormRequest
     {
         return [
             'name'=> ['required', 'string'],
-            // 'bussiness_email'=> ['required', 'email'],
-            // 'bussiness_phone'=> ['required', 'numeric'],
-            // 'bussiness_logo'=> ['nullable', 'image'],
-            // 'admin_name'=> ['required', 'string'],
-            // 'admin_email'=> ['required', 'email'],
-            // 'password'=> ['required', 'confirmed'],
+            'bussiness_email'=> ['required', 'email'],
+            'bussiness_phone'=> ['required'],
+            'bussiness_logo'=> ['nullable'],
+            'admin_name'=> ['required', 'string'],
+            'admin_email'=> ['required', 'email'],
+            'password'=> ['required', 'confirmed'],
         ];
     }
 

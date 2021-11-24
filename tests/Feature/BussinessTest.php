@@ -14,7 +14,13 @@ class BussinessTest extends TestCase
     use DatabaseMigrations;
     public function setUp() : void{
         parent::setUp();
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
+    }
+
+    public function test_bussiness_create_page_can_be_rendered(){
+        $response = $this->get(route('bussiness.create'));
+        $response->assertOk();
+        $response->assertViewIs('bussiness.create');
     }
 
     public function test_bussiness_can_be_store_with_an_initial_admin(){
@@ -25,7 +31,8 @@ class BussinessTest extends TestCase
             'bussiness_logo'=> 'logo.png',
             'admin_name'=> 'Akash',
             'admin_email'=> 'admin@gmail.com',
-            'passowrd'=> 'password',
+            'password'=> 'password',
+            'password_confirmation'=> 'password',
         ];
 
         $response = $this->post(route('bussiness.store'), $data);

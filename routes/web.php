@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\BussinessApplicationController;
 use App\Http\Controllers\BussinessController;
+use App\Http\Controllers\BussinessDashboardController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\MemberInvitationController;
 use App\Http\Controllers\Permission\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Mail\ApplicationApprovedMail;
@@ -41,6 +44,12 @@ Route::get('approve/{application}', [BussinessApplicationController::class, 'app
 Route::get('reject/{application}', [BussinessApplicationController::class, 'reject'])->name('bussiness.application.reject');
 
 
+
+Route::middleware('super_admin')->group(function(){
+    Route::post('/faq', [FaqController::class, 'store'])->name('super_admin.faq.store');
+});
+
+
 Route::get('applications', function(){
     return view('admin.member_requests')->with([
         'applications'=> BussinessApplication::latest()->get(), 
@@ -49,4 +58,13 @@ Route::get('applications', function(){
 
 Route::get('/test', function (){
     return view('test');
+});
+
+
+Route::middleware('admin')->name('bussiness.')->group(function(){
+    Route::get('/bussiness-dashboard', [BussinessDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/invite-user', [BussinessDashboardController::class, 'createInvitation']);
+    Route::post('bussiness/send/invitation', [MemberInvitationController::class, 'inviteUser'])->name('send.invitation');
+    Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser']);
+    Route::post('/register-member', [MemberInvitationController::class, 'createRegisterUser'])->name('register.member');
 });

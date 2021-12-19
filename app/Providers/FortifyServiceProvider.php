@@ -31,6 +31,9 @@ class FortifyServiceProvider extends ServiceProvider
                     return redirect(route('super_admin.dashboard'));
                 }
 
+                if(Auth::user()->hasRole('admin')){
+                    return redirect('/bussiness-dashboard');
+                }
                 return redirect('/');
             }
         });

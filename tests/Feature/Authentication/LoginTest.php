@@ -7,14 +7,38 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
     use DatabaseMigrations;
-    public function test_users_can_authenticate_using_the_login_screen()
+    public function setUp():void{
+        parent::setUp();
+        $this->withoutExceptionHandling();
+        Role::create(['name'=> 'super_admin']);
+        Role::create(['name'=> 'admin']);
+        Role::create(['name'=> 'user']);
+        Role::create(['name'=> 'client']);
+    }
+
+    public function test_users_can_login_and_redirected_to_super_admin_dasbharod()
     {
         $user = User::factory()->create();
+        $user->assignRole('super_admin');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('super_admin.dashboard'));
+    }
+
+    public function test_bussiness_admin_can_login_and_redirected_to_bussiness_dasbharod()
+    {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
 
         $response = $this->post('/login', [
             'email' => $user->email,
@@ -22,7 +46,7 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $response->assertRedirect(route('bussiness.dashboard'));
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()

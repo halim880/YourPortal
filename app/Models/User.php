@@ -47,4 +47,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function bussinesses(){
+        return $this->belongsToMany(Bussiness::class, 'bussiness_user', 'user_id', 'bussiness_id');
+    }
+
+    public function bussiness(){
+        return $this->bussinesses()->first();
+    }
+
+
+    public function isAdmin(){
+        return $this->hasRole('admin');
+    }
+    public function isUser(){
+        return $this->hasRole('user');
+    }
+    public function isClient(){
+        return $this->hasRole('client');
+    }
 }

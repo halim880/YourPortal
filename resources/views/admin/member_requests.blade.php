@@ -38,7 +38,6 @@
             @endif
         </tr>
         @endforeach
-
     </tbody>
 </table>   
 @endsection

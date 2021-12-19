@@ -9,6 +9,10 @@
     @endguest
 
     @auth
-        <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">My Account</a></li>
+        @if (Auth::user()->hasRole('super_admin'))
+            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">My Account</a></li>
+        @elseif(Auth::user()->hasRole('admin'))
+            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('bussiness.dashboard')}}">My Account</a></li>
+        @endif
     @endauth
 </ul>

@@ -30,10 +30,15 @@
                 </li>
                 <li class="nav-item mx-lg-1">
                     @guest
-                    <a class="btn btn-success btn-sm" href="{{route('login')}}">Login</a>
+                        <li class="nav-item"><a style="color: white" class="nav-link btn btn-primary" href="{{route('login')}}">Login</a></li>
                     @endguest
+
                     @auth
-                        <a class="nav-link" href="{{route('super_admin.dashboard')}}">Dashboard</a>
+                        @if (Auth::user()->hasRole('super_admin'))
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">My Account</a></li>
+                        @elseif(Auth::user()->hasRole('admin'))
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('bussiness.dashboard')}}">My Account</a></li>
+                        @endif
                     @endauth
                 </li>
             </ul>

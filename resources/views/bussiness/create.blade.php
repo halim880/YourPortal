@@ -3,7 +3,7 @@
         <!-- Registration Form Section -->
         <section id="bussiness_registration">
             <div class="container">
-              <form action="{{route('bussiness_application.store')}}" method="post">
+             <form action="{{route('bussiness_application.store')}}" method="post">
                 @csrf
                 <div class="row">
                   <h1 style="margin-bottom:40px; text-align:center" class="form-heading">Register Your Bussiness</h1>
@@ -49,7 +49,7 @@
                     </div>
                   </div>
                 </div>
-              </form>
+              </form> 
         </section>
 @endsection
 

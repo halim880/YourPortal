@@ -13,29 +13,20 @@ class ApplicationApprovedMail extends Mailable
     use Queueable, SerializesModels;
 
     public User $user;
-    public string $pass;
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct(User $user, string $pass)
+    public string $password;
+
+    public function __construct(User $user, string $password)
     {
         $this->user = $user;
-        $this->pass = $pass;
+        $this->password = $password;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->markdown('mail.application-approved-mail')->with([
             'name'=> $this->user->name,
             'email'=> $this->user->email,
-            'password'=> $this->pass,
+            'passwordword'=> $this->password,
         ]);
     }
 }

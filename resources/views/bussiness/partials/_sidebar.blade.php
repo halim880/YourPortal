@@ -60,13 +60,6 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="{{URL::to('/invite-user')}}" class="side-nav-link">
-                    <i class="uil-envelope"></i>
-                    <span> Invite User </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
                     <i class="uil-envelopes"></i>
                     <span> Member Requests </span>
@@ -138,6 +131,19 @@
             </li>
 
         </ul>
+
+        {{-- <!-- Help Box -->
+        <div class="help-box text-white text-center">
+            <a href="javascript: void(0);" class="float-end close-btn text-white">
+                <i class="mdi mdi-close"></i>
+            </a>
+            <img src="assets/images/help-icon.svg" height="90" alt="Helper Icon Image">
+            <h5 class="mt-3">Unlimited Access</h5>
+            <p class="mb-3">Upgrade to plan to get access to unlimited reports</p>
+            <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Upgrade</a>
+        </div> --}}
+        <!-- end Help Box -->
+        <!-- End Sidebar -->
 
         <div class="clearfix"></div>
 

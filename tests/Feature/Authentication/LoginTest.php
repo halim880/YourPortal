@@ -15,7 +15,7 @@ class LoginTest extends TestCase
     use DatabaseMigrations;
     public function setUp():void{
         parent::setUp();
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
         Role::create(['name'=> 'super_admin']);
         Role::create(['name'=> 'admin']);
         Role::create(['name'=> 'user']);

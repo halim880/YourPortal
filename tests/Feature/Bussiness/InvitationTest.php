@@ -3,6 +3,7 @@
 namespace Tests\Feature\Bussiness;
 
 use App\Mail\Bussiness\MemberInvitationMail;
+use App\Models\Bussiness;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,7 +25,7 @@ class InvitationTest extends TestCase
         Role::create(['name'=> 'user']);
         Role::create(['name'=> 'client']);
 
-        $this->admin = User::factory()->create();
+        $this->admin = User::factory()->create(['email'=>'admin@gmail.com']);
         $this->admin->assignRole('admin');
 
     }
@@ -35,10 +36,27 @@ class InvitationTest extends TestCase
         ];
 
         $response = $this->actingAs($this->admin)->post('bussiness/send/invitation', $data);
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         Mail::assertSent(MemberInvitationMail::class, function($mail){
             return $mail->hasTo('test@mail.com');
         });
+    }
+
+    public function test_user_can_register_through_invitation(){
+        $b = Bussiness::factory()->create();
+
+        $data = [
+            'bussiness_id'=> $b->id,
+            'name'=> 'akash',
+            'email'=> 'test@mail.com',
+            'password'=> 'password'
+        ];
+
+        $response = $this->post(route('bussiness.register.member'), $data);
+        $user = User::where('email', 'test@mail.com')->get()->first();
+        $response->assertRedirect(route('login'));
+        $this->assertNotNull($user->bussinesses);
+
     }
 }

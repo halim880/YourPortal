@@ -42,7 +42,7 @@ class BussinessApplicationTest extends TestCase
 
         $application = BussinessApplication::create($data);
         
-        $response = $this->get(route('bussiness.application.show', $application));
+        $response = $this->actingAs($this->admin)->get(route('bussiness.application.show', $application));
         $response->assertOk();
         $response->assertViewIs('super_admin.bussiness_application.show');
     }
@@ -58,7 +58,7 @@ class BussinessApplicationTest extends TestCase
 
         $application = BussinessApplication::create($data);
         $response = $this->actingAs($this->admin)->get(route('bussiness_application.approve', $application));
-        $response->assertOk();
+        $response->assertRedirect();
 
         Mail::assertSent(ApplicationApprovedMail::class, function($mail) use($application){
             return $mail->hasTo($application->admin_email);

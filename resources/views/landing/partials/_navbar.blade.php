@@ -35,9 +35,9 @@
 
                     @auth
                         @if (Auth::user()->hasRole('super_admin'))
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">My Account</a></li>
-                        @elseif(Auth::user()->hasRole('admin'))
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('bussiness.dashboard')}}">My Account</a></li>
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">Dashboard</a></li>
+                        @elseif(Auth::user()->isAdmin() || Auth::user()->isUser())
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('bussiness.dashboard')}}">Dashboard</a></li>
                         @endif
                     @endauth
                 </li>

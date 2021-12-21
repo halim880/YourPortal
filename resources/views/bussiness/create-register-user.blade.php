@@ -21,9 +21,11 @@
                       <form action="{{route('bussiness.register.member')}}" method="POST">
                         @csrf
 
+                        <input type="text" name="bussiness_id" value="{{$bussiness->id}}" style="display:none">
+
                           <div class="mb-3">
-                              <label for="emailaddress" class="form-label">Email</label>
-                              <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email" name="email">
+                              <label for="name" class="form-label">Name</label>
+                              <input class="form-control" type="text" id="email" required name="name" placeholder="Enter Your Name">
                               
                               @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -33,9 +35,20 @@
                           </div>
 
                           <div class="mb-3">
+                            <label for="emailaddress" class="form-label">Email</label>
+                            <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email" name="email">
+                            
+                            @error('email')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                        </div>
+
+                          <div class="mb-3">
                               <label for="password" class="form-label">Password</label>
                               <div class="input-group input-group-merge">
-                                  <input type="password" id="password" class="form-control" name="password-confirm">
+                                  <input type="password" id="password" class="form-control" name="password">
                                   <div class="input-group-text" data-password="false">
                                       <span class="password-eye"></span>
                                   </div>
@@ -46,19 +59,6 @@
                                     </span>
                                 @enderror
                           </div>
-                          <div class="mb-3">
-                            <label for="password" class="form-label"> Confirm Password</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" id="password" class="form-control" name="confirm-password">
-                                <div class="input-group-text" data-password="false">
-                                    <span class="password-eye"></span>
-                                </div>
-                            </div>
-                            @error('password')
-                                  <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                  </span>
-                              @enderror
                         </div>
 
                           <div class="mb-3 mb-0 text-center">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\Bussiness\MemberInvitationMail;
 use App\Models\Bussiness;
+use App\Models\User;
+use App\Http\Requests\InivitedUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -23,5 +25,10 @@ class MemberInvitationController extends Controller
         return view('bussiness.create-register-user')->with([
             'bussiness'=> Bussiness::find(request('bussinessId')),
         ]);
+    }
+
+    public function storeUser(InivitedUserRequest $request){
+        $request->storeUser();
+        return redirect()->route('login');
     }
 }

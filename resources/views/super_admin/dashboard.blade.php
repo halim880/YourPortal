@@ -1,1 +1,1 @@
-@extends('layouts.backend.app');
+@extends('layouts.backend.super_admin');

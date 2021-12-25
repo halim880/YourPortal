@@ -30,7 +30,7 @@
                 </li>
                 <li class="nav-item mx-lg-1">
                     @guest
-                        <li class="nav-item"><a style="color: white" class="nav-link btn btn-primary" href="{{route('login')}}">Login</a></li>
+                        <li class="nav-item"><a dask="login-button" style="color: white" class="nav-link btn btn-primary" href="{{route('login')}}">Login</a></li>
                     @endguest
 
                     @auth

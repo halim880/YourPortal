@@ -35,7 +35,7 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('super_admin.dashboard'));
     }
 
-    public function test_bussiness_admin_can_login_and_redirected_to_bussiness_dasbharod()
+    public function test_member_admin_can_login_and_redirected_to_bussiness_dasbharod()
     {
         $user = User::factory()->create();
         $user->assignRole('admin');
@@ -46,7 +46,21 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('bussiness.dashboard'));
+        $response->assertRedirect(route('member.dashboard'));
+    }
+
+    public function test_client_can_login_and_redirected_to_client_dasbharod()
+    {
+        $user = User::factory()->create();
+        $user->assignRole('client');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('client.dashboard'));
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()

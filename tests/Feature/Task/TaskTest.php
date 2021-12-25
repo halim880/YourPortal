@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Task;
 
-use App\Models\Bussiness;
+use App\Models\member;
 use App\Models\Client;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -17,29 +15,45 @@ class TaskTest extends TestCase
     use DatabaseMigrations;
     public function setUp():void{
         parent::setUp();
+
+        $this->withoutExceptionHandling();
+        Role::create(['name'=> 'client']);
         Role::create(['name'=> 'admin']);
+        Role::create(['name'=> 'member']);
         $this->admin = User::factory()->create()->assignRole('admin');
+
+
+        $this->client = User::factory()->create()->assignRole('client');
+        Client::factory()->create(['user_id'=> $this->client->id]);
     }
 
     public function test_task_create_form_can_be_rendered(){
-        $response = $this->actingAs($this->admin)->get(route('tasks.create'));
+        $response = $this->actingAs($this->client)->get(route('client.tasks.create'));
         $response->assertOk();
-        $response->assertViewIs('bussiness.task.create');
+        $response->assertViewIs('client.task.create');
     }
 
     public function test_task_can_be_stored(){
-        $this->withoutExceptionHandling();
 
-        $b = Bussiness::factory()->create();
+        $b = Member::factory()->create();
         $c = Client::factory()->create();
+        
         $data = [
             'title'=> 'this is a task title',
             'description'=> 'This the description of the task',
-            'bussiness_id'=> $b->id,
             'client_id'=> $c->id,
         ];
-        $response = $this->actingAs($this->admin)->post('tasks', $data);
+        $response = $this->actingAs($this->client)->post(route('client.tasks.store'), $data);
         $task = Task::first();
         $this->assertNotNull($task);
     }
+
+    public function test_client_can_get_task_list(){
+        $this->withoutExceptionHandling();
+        $c = Client::factory()->create();
+        $response = $this->actingAs($this->client)->get(route('client.tasks.index'));
+        $response->assertViewIs('client.task.index');
+        $response->assertViewHas('tasks');
+    }
+
 }

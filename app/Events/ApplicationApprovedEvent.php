@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Bussiness\BussinessApplication;
+use App\Models\Member\MemberApplication;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,14 +15,14 @@ class ApplicationApprovedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public BussinessApplication $application;
+    public MemberApplication $application;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(BussinessApplication $application)
+    public function __construct(MemberApplication $application)
     {
         $this->application = $application;
 

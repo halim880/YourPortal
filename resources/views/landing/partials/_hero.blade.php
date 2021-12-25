@@ -16,7 +16,8 @@
                         
                         Stay ahead of your competitors. You are in safe hands when it comes to data sharing.</p>
 
-                    <a href="{{route('bussiness.create')}}" class="btn btn-success">Try free for 90 days <i class="mdi mdi-arrow-right ms-1"></i></a>
+                        <a href="{{route('member.create')}}" class="btn btn-success">Try free for 90 days <i class="mdi mdi-arrow-right ms-1"></i></a>
+                        <a href="{{route('clients.create')}}" class="btn btn-warning mx-2">Register as Bussiness <i class="mdi mdi-arrow-right ms-1"></i></a>
                 </div>
             </div>
             <div class="col-md-5 offset-md-2">

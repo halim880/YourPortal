@@ -25,7 +25,7 @@ class RoleTest extends TestCase
             'name'=> 'admin',
         ];
 
-        $response = $this->actingAs($user)->post(route('role.store'), $data);
+        $response = $this->actingAs($user)->post(route('super_admin.role.store'), $data);
         $response->assertOk();
         $response->assertSessionHas('success', 'Role has been successfully saved');
     }

@@ -34,7 +34,11 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 if($user->isAdmin() || $user->isUser()){
-                    return redirect('/bussiness-dashboard');
+                    return redirect(route('member.dashboard'));
+                }
+
+                if($user->isClient()){
+                    return redirect(route('client.dashboard'));
                 }
                 return redirect('/');
             }

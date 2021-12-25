@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserCreatedEvent;
 use App\Mail\ApplicationApprovedMail;
-use App\Models\Bussiness;
+use App\Models\member;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -42,15 +42,15 @@ class ApplicationApprovedListener
             'password'=> bcrypt($pass),
         ];
 
-        $bussinessData = [
+        $memberData = [
             'name'=> $data->name,
-            'bussiness_email'=> $data->bussiness_email,
-            'bussiness_phone'=> $data->bussiness_phone,
+            'member_email'=> $data->member_email,
+            'member_phone'=> $data->member_phone,
         ];
 
-        DB::transaction(function() use($userData, $bussinessData, $pass){
+        DB::transaction(function() use($userData, $memberData, $pass){
             $user = User::create($userData);
-            Bussiness::create($bussinessData);
+            Member::create($memberData);
 
             $user->assignRole('admin');
 

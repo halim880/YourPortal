@@ -1,75 +1,97 @@
 <?php
 
-use App\Http\Controllers\BussinessApplicationController;
-use App\Http\Controllers\BussinessController;
-use App\Http\Controllers\BussinessDashboardController;
+use App\Http\Controllers\Client\TaskController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\MemberApplicationController;
+use App\Http\Controllers\MemberDashboardController;
 use App\Http\Controllers\MemberInvitationController;
+use App\Http\Controllers\MemberRegistrationController;
 use App\Http\Controllers\Permission\RoleController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\TaskController;
-use App\Mail\ApplicationApprovedMail;
-use App\Mail\BussinessApplicationReceived;
-use App\Models\Bussiness\BussinessApplication;
-use App\Models\User;
+use App\Http\Controllers\StoreUserController;
+use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\Web\WebController;
+use App\Models\Member\MemberApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+/*
+|----------------------------------------------------------------------------------------------------
+| Guest
+|----------------------------------------------------------------------------------------------------
+*/
+Route::resource('clients', ClientController::class);
+
+Route::get('/', [WebController::class, 'landingPage']);
+Route::get('/home', [WebController::class, 'home'])->name('home');
+
+Route::get('/free-register', [MemberController::class, 'create'])->name('member.create');
+Route::post('member/store', [MemberController::class, 'store'])->name('member.store');
+
+Route::post('/member/application', [MemberApplicationController::class, 'store'])->name('member_application.store');
+
+Route::post('user/stroe', [StoreUserController::class, 'storeInvitedUser'])->name('invited_user.store');
+
+/*
+|----------------------------------------------------------------------------------------------------
+| Super Admin
+|----------------------------------------------------------------------------------------------------
+*/
+Route::prefix('/super_admin')->name('super_admin.')->middleware('super_admin')->group(function(){
+    Route::post('role-create', [RoleController::class, 'store'])->name('role.store');
+    Route::post('/faq', [FaqController::class, 'store'])->name('faq.store');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/member-list', [DashboardController::class, 'memberList'])->name('member_list');
+
+    //Member Application
+    Route::get('/member/{application}', [MemberApplicationController::class, 'show'])->name('member_application.show');
+    Route::get('/approve/{application}', [MemberApplicationController::class, 'approve'])->name('member_application.approve');
+    Route::get('/reject/{application}', [MemberApplicationController::class, 'reject'])->name('member_application.reject');
+    Route::get('/member-applications', [MemberApplicationController::class, 'applicationList'])->name('member_applications');
+
+    
+    
+    //Task
+    Route::get('/task-list', [SuperAdminTaskController::class, 'taskList'])->name('task.list');
+    Route::get('/task-suggest', [SuperAdminTaskController::class, 'taskSuggest'])->name('task.suggest');
+    Route::post('/task-suggest', [SuperAdminTaskController::class, 'taskSuggetionSend'])->name('task.suggest.send');
 
 
-Route::get('/', function () {
-    return view('landing.landing_page');
+    // Route::get('/member-list', [MemberController::class, 'memberList'])->name('member_list');
 });
 
-Route::get('/home', function (){
-    return "loged in";
-})->name('home');
+/*
+|----------------------------------------------------------------------------------------------------
+| Member
+|----------------------------------------------------------------------------------------------------
+*/
+Route::prefix('member/')->name('member.')->middleware('admin')->group(function(){
+    Route::get('/member-dashboard', [MemberDashboardController::class, 'dashboard'])->name('dashboard');
 
-Route::middleware('super_admin')->group(function(){
-    Route::post('role/create', [RoleController::class, 'store'])->name('role.store');
+    Route::get('invite-user', [MemberDashboardController::class, 'createInvitation'])->name('invite_user');
+
+    Route::post('send/invitation', [MemberInvitationController::class, 'inviteUser'])->name('send.invitation');
+
+    Route::get('suggested-task', [MemberTaskController::class, 'suggested'])->name('task.suggested');
+
 });
 
-Route::post('bussiness/store', [BussinessController::class, 'store'])->name('bussiness.store');
-Route::get('/free-register', [BussinessController::class, 'create'])->name('bussiness.create');
+Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser']);
+Route::post('/register-member', [MemberInvitationController::class, 'storeUser'])->name('register.member');
 
-Route::post('/bussiness/application', [BussinessApplicationController::class, 'store'])->name('bussiness_application.store');
+/*
+|----------------------------------------------------------------------------------------------------
+| Client
+|----------------------------------------------------------------------------------------------------
+*/
 
-
-
-Route::get('/super-admin', function(){
-    return view('admin.dashboard');
-})->name('super_admin.dashboard');
-
-Route::get('bussiness/{application}', [BussinessApplicationController::class, 'show'])->name('bussiness.application.show');
-Route::get('approve/{application}', [BussinessApplicationController::class, 'approve'])->name('bussiness_application.approve');
-Route::get('reject/{application}', [BussinessApplicationController::class, 'reject'])->name('bussiness.application.reject');
-
-
-
-Route::middleware('super_admin')->group(function(){
-    Route::post('/faq', [FaqController::class, 'store'])->name('super_admin.faq.store');
+Route::prefix('client/')->name('client.')->middleware('client')->group(function (){
+    Route::resource('tasks', TaskController::class);
+    Route::get('/dashboard', [ClientDashboardController::class, 'dashboard'])->name('dashboard');
 });
 
-
-Route::get('applications', function(){
-    return view('admin.member_requests')->with([
-        'applications'=> BussinessApplication::latest()->get(), 
-    ]);
-})->name('admin.dashboard.applications');
 
 Route::get('/test', function (){
     return view('test');
 });
-
-Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser']);
-Route::post('/register-member', [MemberInvitationController::class, 'storeUser'])->name('bussiness.register.member');
-Route::get('/bussiness-dashboard', [BussinessDashboardController::class, 'dashboard'])->name('bussiness.dashboard');
-
-Route::middleware('admin')->name('bussiness.')->group(function(){
-    Route::get('/invite-user', [BussinessDashboardController::class, 'createInvitation']);
-    Route::post('bussiness/send/invitation', [MemberInvitationController::class, 'inviteUser'])->name('send.invitation');
-});
-
-Route::resource('clients', ClientController::class);
-Route::resource('tasks', TaskController::class);

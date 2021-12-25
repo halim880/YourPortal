@@ -15,7 +15,7 @@ class StoreTaskRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->isAdmin();
+        return Auth::user()->isClient();
     }
 
     /**
@@ -28,8 +28,6 @@ class StoreTaskRequest extends FormRequest
         return [
             'title'=> ['required', 'string'],
             'description'=> ['nullable', 'string'],
-            'client_id'=> ['required'],
-            'bussiness_id'=> ['required'],
         ];
     }
 
@@ -42,9 +40,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title'=> $this->title,
             'description'=>$this->description,
-            'user_id'=> Auth::user()->id,
-            'client_id'=> $this->client_id,
-            'bussiness_id'=> $this->bussiness_id,
+            'client_id'=> Auth::user()->client_id,
         ];
     }
 }

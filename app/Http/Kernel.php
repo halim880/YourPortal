@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\MyMiddleware\IsAdmin;
+use App\Http\Middleware\MyMiddleware\IsClient;
 use App\Http\Middleware\MyMiddleware\IsSupperAdmin;
 use App\Http\Middleware\MyMiddleware\IsUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -42,6 +43,16 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'super_admin' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
@@ -69,5 +80,6 @@ class Kernel extends HttpKernel
         'super_admin'=> IsSupperAdmin::class,
         'admin'=> IsAdmin::class,
         'user'=> IsUser::class,
+        'client'=> IsClient::class,
     ];
 }

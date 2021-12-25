@@ -6,7 +6,6 @@
       <div class="row justify-content-center">
           <div class="col-xxl-4 col-lg-5">
               <div class="card">
-
                   <!-- Logo -->
                   <div class="card-header pt-4 pb-4 text-center">
                     <span class="text-white font-20">{{config('app.name')}}</span>

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -47,14 +48,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function bussinesses(){
-        return $this->belongsToMany(Bussiness::class, 'bussiness_user', 'user_id', 'bussiness_id');
+    public function members(){
+        return $this->belongsToMany(Member::class, 'member_user', 'user_id', 'member_id');
     }
 
-    public function bussiness(){
-        return $this->bussinesses()->first();
+    public function member(){
+        return $this->members()->first();
     }
 
+    public function client(){
+        return $this->hasOne(Client::class);
+    }
 
     public function isSuperAdmin(){
         return $this->hasRole('super_admin');
@@ -67,5 +71,9 @@ class User extends Authenticatable
     }
     public function isClient(){
         return $this->hasRole('client');
+    }
+
+    public function getClientIdAttribute(){
+        return $this->client->id;
     }
 }

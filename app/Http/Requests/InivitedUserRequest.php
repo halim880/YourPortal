@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Events\UserCreatedEvent;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class InivitedUserRequest extends FormRequest
 {
@@ -26,6 +27,7 @@ class InivitedUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'member_id'=>['required'],
             'name'=> ['required', 'string'],
             'email'=> ['email', 'unique:users'],
             'password'=> ['required']
@@ -36,8 +38,8 @@ class InivitedUserRequest extends FormRequest
         try {
             $user = User::create($this->toArray());
             $user->assignRole('user');
-            $user->bussinesses()->attach($this->bussiness_id);
-            UserCreatedEvent::dispatch($user);
+            $user->members()->attach($this->member_id);
+            // UserCreatedEvent::dispatch($user);
             
         } catch (\Throwable $th) {
             dd($th);

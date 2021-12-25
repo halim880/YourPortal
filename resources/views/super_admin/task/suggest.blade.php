@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-body">
           @if (Session::has('message'))
-          <div class="alert alert-warning alert-dismissible">
+          <div class="alert alert-warning">
             <p class="">{{Session::get('message')}}</p>
           </div>
           @endif

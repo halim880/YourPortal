@@ -23,6 +23,9 @@ class TaskTest extends TestCase
             'client_id'=> $c->id,
         ];
         $task = Task::create($data);
+        $this->assertFalse($task->isAssigned());
+        // $this->assertTrue($task->isAssigned());
+
         $this->assertNotNull($task);
     }
 }

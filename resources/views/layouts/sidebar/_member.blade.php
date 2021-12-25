@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <a href="index.html" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="assets/images/logo.png" alt="" height="16">
+            <img src="{{asset('assets/images/logo.png')}}" alt="" height="16">
         </span>
         <span class="logo-sm">
             <img src="assets/images/logo_sm.png" alt="" height="16">
@@ -35,44 +35,25 @@
             <li class="side-nav-item">
                 <a href="apps-chat.html" class="side-nav-link">
                     <i class="uil-comments-alt"></i>
-                    <span> Chat </span>
+                    <span> Message </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{route('member.user.index', ['m_id'=>Auth::user()->member()->id])}}" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Users </span>
                 </a>
             </li>
 
             @if (Auth::user()->isAdmin())
                 <li class="side-nav-item">
-                    <a href="{{URL::to('/invite-user')}}" class="side-nav-link">
+                    <a href="{{route('member.invite_user')}}" class="side-nav-link">
                         <i class="uil-envelope"></i>
                         <span> Invite User </span>
                     </a>
                 </li>
-                <li class="side-nav-item">
-                    <a href="apps-chat.html" class="side-nav-link">
-                        <i class="uil-users-alt"></i>
-                        <span> Clients </span>
-                    </a>
-                </li>
             @endif
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarProjects" aria-expanded="false" aria-controls="sidebarProjects" class="side-nav-link">
-                    <i class="uil-briefcase"></i>
-                    <span> Projects </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarProjects">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="apps-projects-list.html">List</a>
-                        </li>
-                        @if (Auth::user()->isAdmin())
-                            <li>
-                                <a href="apps-projects-add.html">Create Project <span class="badge rounded-pill badge-success-lighten font-10 float-end">New</span></a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </li>
 
 
             <li class="side-nav-item">

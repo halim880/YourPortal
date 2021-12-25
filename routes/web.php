@@ -2,17 +2,19 @@
 
 use App\Http\Controllers\Client\TaskController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Member\MemberUserController;
+use App\Http\Controllers\Member\TaskController as MemberTaskController;
 use App\Http\Controllers\MemberApplicationController;
 use App\Http\Controllers\MemberDashboardController;
 use App\Http\Controllers\MemberInvitationController;
-use App\Http\Controllers\MemberRegistrationController;
 use App\Http\Controllers\Permission\RoleController;
 use App\Http\Controllers\StoreUserController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\TaskController as SuperAdminTaskController;
 use App\Http\Controllers\Web\WebController;
-use App\Models\Member\MemberApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -75,10 +77,16 @@ Route::prefix('member/')->name('member.')->middleware('admin')->group(function()
 
     Route::get('suggested-task', [MemberTaskController::class, 'suggested'])->name('task.suggested');
 
+    Route::get('/member-users', [MemberUserController::class, 'index'])->name('user.index');
+
 });
 
-Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser']);
-Route::post('/register-member', [MemberInvitationController::class, 'storeUser'])->name('register.member');
+
+
+Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser'])->name('invited_user.create');
+
+
+// Route::post('/store-user', [MemberInvitationController::class, 'storeUser'])->name('invited_user.store');
 
 /*
 |----------------------------------------------------------------------------------------------------

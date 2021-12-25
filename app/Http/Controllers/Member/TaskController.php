@@ -15,6 +15,9 @@ class TaskController extends Controller
                 ->where('assigned_user_id', null)
                 ->select()
                 ->get();
-        dd($tasks);
+
+        return view('member.task.suggested')->with([
+            'tasks'=> $tasks,
+        ]);
     }
 }

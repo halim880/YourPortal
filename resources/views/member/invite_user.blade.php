@@ -3,16 +3,20 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    {{$message}}
-  @endif
-  <div class="row mt-3">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h3>Invitation</h3>
-        </div>
-        <div class="card-body">
+<div class="row mt-3">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h3>Invitation</h3>
+      </div>
+      <div class="card-body p-3">
+          @if (Session::has('message'))
+            <div class="alert alert-success">
+              <p>
+                {{Session::get('message')}}
+              </p>
+            </div>
+            @endif
           <form action="{{route('member.send.invitation')}}" method="post">
             @csrf
             <div class="form-group mb-3">

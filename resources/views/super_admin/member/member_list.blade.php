@@ -13,8 +13,9 @@
                 <h2>List of Members</h2>
                 <table class="table">
                   <thead>
-                      <th>name</th>
-                      <th>Description</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
                       <th>Actions</th>
                   </thead>
                   <tbody>
@@ -27,11 +28,9 @@
                   
                       @foreach ($members as $member)
                           <tr>
-                              <td>{{$member->bussiness_name}}</td>
-                              <td>{{$member->bussiness_email}}</td>
-                              <td>
-                                  Assigned
-                              </td>
+                              <td>{{$member->name}}</td>
+                              <td>{{$member->member_email}}</td>
+                              <td>{{$member->member_phone}}</td>
                               <td>
                                   <a href="" class="btn btn-primary">View</a>
                               </td>

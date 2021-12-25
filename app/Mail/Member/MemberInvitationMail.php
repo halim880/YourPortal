@@ -2,7 +2,7 @@
 
 namespace App\Mail\Member;
 
-use App\Models\Bussiness;
+use App\Models\Member;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,17 +11,20 @@ use Illuminate\Queue\SerializesModels;
 class MemberInvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public string $email;
-    public $bussiness;
+    public string $url;
+    public Member $member;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email, $bussiness)
+    public function __construct($email, $member, $url)
     {
         $this->email = $email;
-        $this->bussiness = $bussiness;
+        $this->member = $member;
+        $this->url = $url;
     }
 
     /**
@@ -33,8 +36,8 @@ class MemberInvitationMail extends Mailable
     {
         return $this->markdown('mail.member-invitation')->with([
             'email'=> $this->email,
-            'bussiness_name'=> $this->bussiness->name,
-            'bussiness_id'=> $this->bussiness->id,
+            'member_name'=> $this->member->name,
+            'url'=> $this->url,
         ]);
     }
 }

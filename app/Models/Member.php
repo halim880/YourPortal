@@ -17,4 +17,7 @@ class Member extends Model
         'member_logo',
     ];
 
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

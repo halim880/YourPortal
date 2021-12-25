@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bussiness;
+use App\Models\Member;
 use App\Models\Task;
-use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -21,7 +20,7 @@ class TaskController extends Controller
     public function taskSuggest(){
         return view('super_admin.task.suggest')->with([
             'task_id'=> request('task_id'),
-            'members'=> Bussiness::orderBy('name', 'asc')->get(),
+            'members'=> Member::orderBy('name', 'asc')->get(),
         ]);
     }
 

@@ -1,8 +1,8 @@
 @component('mail::message')
 # Hey !,
-You are invited to join <b>{{$bussiness_name}}</b>
+You are invited to join <b>{{$member_name}}</b>
 
-@component('mail::button', ['url' => 'http://127.0.0.1:8000/register-user?bussinessId='.$bussiness_id])
+@component('mail::button', ['url' => $url])
 Join Now
 @endcomponent
 

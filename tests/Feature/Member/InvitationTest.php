@@ -26,22 +26,39 @@ class InvitationTest extends TestCase
         Role::create(['name'=> 'client']);
 
         $this->admin = User::factory()->create(['email'=>'admin@gmail.com']);
+        $this->member = Member::factory()->create();
+        $this->admin->members()->attach($this->member->id);
         $this->admin->assignRole('admin');
 
     }
     public function test_member_admin_can_send_invitation()
     {
         $data = [
-            'email'=> 'test@mail.com',
+            'email'=> 'invited@mail.com',
         ];
 
-        $response = $this->actingAs($this->admin)->post('member/send/invitation', $data);
+        $response = $this->actingAs($this->admin)->post(route('member.send.invitation'), $data);
         $response->assertStatus(302);
 
         Mail::assertSent(MemberInvitationMail::class, function($mail){
-            return $mail->hasTo('test@mail.com');
+            return $mail->hasTo('invited@mail.com')
+                && $mail->member->is($this->member)
+                && $mail->url == route('invited_user.create', ['m_id'=>$this->member->id]);
         });
     }
+
+
+    public function test_invited_user_can_see_registration_form(){
+
+        $member = Member::factory()->create();
+        $params = ['m_id'=> $member->id];
+
+        $response = $this->get(route('invited_user.create', $params));
+        $response->assertStatus(200);
+        $response->assertViewIs('member.invited_user_create');
+        $response->assertSee($member->name);
+    }
+
 
     public function test_user_can_register_through_invitation(){
         $member = Member::factory()->create();

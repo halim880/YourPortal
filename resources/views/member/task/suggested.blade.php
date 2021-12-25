@@ -1,38 +1,32 @@
-@extends('layouts.backend.client')
+@extends('layouts.backend._member')
 
 @section('content')
-
-  @if (Session::has('message'))
-    {{$message}}
-  @endif
   
   <div class="row mt-2">
       <div class="col-md-10">
           <div class="card">
               <div class="card-body p-4">
-                <h2>List of tasks</h2>
+                <h2>List of Tasks</h2>
                 <table class="table">
                   <thead>
-                      <th>title</th>
+                      <th>Title</th>
                       <th>Description</th>
-                      <th>Status</th>
                       <th>Actions</th>
                   </thead>
                   <tbody>
+                      
+                    @if ($tasks->count()<1)
+                    <tr>
+                        <td colspan="3" class="text-center"><b>No Suggested Tasks</b></td>
+                    </tr>
+                    @endif
+                  
                       @foreach ($tasks as $task)
                           <tr>
                               <td>{{$task->title}}</td>
                               <td>{{$task->description}}</td>
                               <td>
-                                @if ($task->isAssigned())
-                                    Assigned
-                                 @else 
-                                    Not assigned
-                                  @endif
-                              </td>
-                              <td>
-                                  <a href="" class="btn btn-primary">Edit</a>
-                                  <a href="" class="btn btn-danger">Delete</a>
+                                  <a href="" class="btn btn-primary">View</a>
                               </td>
                           </tr>
                       @endforeach

@@ -19,9 +19,10 @@ class Task extends Model
     }
 
     private function getAssignedUserId(){
-        return DB::table('tasks')
+        $r = DB::table('tasks')
             ->join('task_assigns', 'tasks.id', '=', 'task_assigns.task_id')
             ->select('assigned_user_id')
-            ->get()[0]->assigned_user_id;
+            ->where('assigned_user_id', '!=', null)
+            ->get()->first();
     }
 }

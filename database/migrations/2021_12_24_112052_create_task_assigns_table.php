@@ -15,9 +15,24 @@ class CreateTaskAssignsTable extends Migration
     {
         Schema::create('task_assigns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('member_id')->references('id')->on('members')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('assigned_user_id')->nullable();
+            $table->foreignId('task_id')
+                ->references('id')
+                ->on('tasks')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+                
+            $table->foreignId('member_id')
+                ->references('id')
+                ->on('members')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreignId('assigned_user_id')
+                ->nullable()
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
             $table->unique(['task_id', 'member_id']);
         });

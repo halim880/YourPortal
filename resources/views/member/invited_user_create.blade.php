@@ -15,13 +15,13 @@
                   <div class="card-body p-3">
                       
                       <div class="text-center w-75 m-auto">
-                          <h4 class="text-dark-50 text-center pb-0 fw-bold">{{$bussiness->name}}</h4>
+                          <h4 class="text-dark-50 text-center pb-0 fw-bold">{{$member->name}}</h4>
                       </div>
 
-                      <form action="{{route('bussiness.register.member')}}" method="POST">
+                      <form action="{{route('invited_user.store')}}" method="POST">
                         @csrf
 
-                        <input type="text" name="bussiness_id" value="{{$bussiness->id}}" style="display:none">
+                        <input type="text" name="member_id" value="{{$member->id}}" style="display:none">
 
                           <div class="mb-3">
                               <label for="name" class="form-label">Name</label>

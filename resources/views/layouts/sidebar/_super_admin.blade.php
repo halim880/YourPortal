@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <a href="index.html" class="logo text-center logo-light mt-3">
         <span class="logo-lg">
-            <img src="assets/images/logo.png" alt="" height="16">
+            <img src="{{asset('assets/images/logo.png')}}" alt="" height="16">
         </span>
         <span class="logo-sm">
             <img src="assets/images/logo_sm.png" alt="" height="16">
@@ -27,7 +27,7 @@
             <li class="side-nav-title side-nav-item">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="apps-chat.html" class="side-nav-link">
+                <a href="{{route('super_admin.dashboard')}}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Dashboards </span>
                 </a>

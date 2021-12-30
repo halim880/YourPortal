@@ -14,7 +14,8 @@ class FaqTest extends TestCase
     public function test_faq_can_be_created(){
         $data = [
             'question'=> 'This is first question?',
-            'answer'=> 'This is the answer of first question'
+            'answer'=> 'This is the answer of first question',
+            'priority'=> 1,
         ];
 
         Faq::create($data);
@@ -22,5 +23,6 @@ class FaqTest extends TestCase
         $this->assertNotNull($faq);
         $this->assertEquals($faq->question, 'This is first question?');
         $this->assertEquals($faq->answer, 'This is the answer of first question');
+        $this->assertEquals($faq->priority, 1);
     }
 }

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ClientTableSeeder::class,
             TaskTableSeeder::class,
             MemberTableSeeder::class,
+            MemberUserSeeder::class,
         ]);
     }
 }

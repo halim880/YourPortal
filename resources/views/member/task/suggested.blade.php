@@ -26,7 +26,7 @@
                               <td>{{$task->title}}</td>
                               <td>{{$task->description}}</td>
                               <td>
-                                  <a href="" class="btn btn-primary">View</a>
+                                  <a href="{{route('member.task.assign_form', ['task_id'=>$task->id])}}" class="btn btn-primary">Assign</a>
                               </td>
                           </tr>
                       @endforeach

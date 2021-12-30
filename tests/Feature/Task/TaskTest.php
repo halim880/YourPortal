@@ -48,6 +48,10 @@ class TaskTest extends TestCase
         $this->assertNotNull($task);
     }
 
+    public function test_task_can_be_deleted(){
+        $this->assertTrue(true);
+    }
+
     public function test_client_can_get_task_list(){
         $this->withoutExceptionHandling();
         $c = Client::factory()->create();

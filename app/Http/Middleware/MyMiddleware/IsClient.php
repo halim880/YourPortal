@@ -19,6 +19,6 @@ class IsClient
         if (auth()->user()->isClient()) {
             return $next($request);
         }
-        abort(404);
+        abort(401, "You are not allowed for this action");
     }
 }

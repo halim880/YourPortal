@@ -19,5 +19,6 @@ class IsUser
         if (auth()->user()->isAdmin()) {
             return $next($request);
         }
+        abort(401, "You are not allowed for this action");
     }
 }

@@ -70,6 +70,11 @@
                         <li>
                             <a href="apps-tasks.html">On going tasks</a>
                         </li>
+                        @if (Auth::user()->isUser())
+                            <li>
+                                <a href="{{route('member.user.tasks.assigned')}}">Your tasks</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </li>

@@ -49,6 +49,20 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('member.dashboard'));
     }
 
+    public function test_member_user_can_login_and_redirected_to_bussiness_dasbharod()
+    {
+        $user = User::factory()->create();
+        $user->assignRole('user');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('member.dashboard'));
+    }
+
     public function test_client_can_login_and_redirected_to_client_dasbharod()
     {
         $user = User::factory()->create();

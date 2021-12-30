@@ -17,6 +17,7 @@ class CreateFaqsTable extends Migration
             $table->id();
             $table->text('question');
             $table->text('answer');
+            $table->unsignedInteger('priority')->default(3);
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use UserRole;
 
 class User extends Authenticatable
 {
@@ -60,6 +61,13 @@ class User extends Authenticatable
         return $this->hasOne(Client::class);
     }
 
+
+
+
+    // Roles
+    public function isSystemAdmin(){
+        $this->hasRole(UserRole::SYSTEM_ADMIN);
+    }
     public function isSuperAdmin(){
         return $this->hasRole('super_admin');
     }
@@ -72,8 +80,15 @@ class User extends Authenticatable
     public function isClient(){
         return $this->hasRole('client');
     }
-
     public function getClientIdAttribute(){
         return $this->client->id;
+    }
+
+    public function hasRole($role){
+        return $this->u_role == $role;
+    }
+
+    public function getRoleAttribute(){
+        UserRole::getName($this->u_role);
     }
 }

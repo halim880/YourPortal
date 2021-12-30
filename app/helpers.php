@@ -16,3 +16,10 @@ if(!function_exists("makeAvatar")){
         return $dest;
     }
 }
+
+if (!function_exists("makeSlug")) {
+    function makeSlug(string $str) : string{
+        $str = strtolower(trim($str));
+        return preg_replace('#[ -]+#', '-', $str);
+    }
+}

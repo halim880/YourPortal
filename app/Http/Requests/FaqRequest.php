@@ -27,6 +27,7 @@ class FaqRequest extends FormRequest
         return [
             'question'=> ['required', 'string'],
             'answer'=> ['required', 'string'],
+            'priority'=> ['nullable', 'numeric']
         ];
     }
 
@@ -39,6 +40,7 @@ class FaqRequest extends FormRequest
         return [
             'question'=> request('question'),
             'answer'=> request('answer'),
+            'priority'=> request('priority'),
         ];
     }
 }

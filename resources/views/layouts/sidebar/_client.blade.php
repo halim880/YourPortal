@@ -33,9 +33,9 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="apps-chat.html" class="side-nav-link">
+                <a href="{{route("client.message.inbox")}}" class="side-nav-link">
                     <i class="uil-comments-alt"></i>
-                    <span> Chat </span>
+                    <span> Message </span>
                 </a>
             </li>
 

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Helpers\PackageType;
+use App\Helpers\PlanType;
+use App\Helpers\RenewalType;
+use App\Helpers\SubscriptionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MemberRequest;
 use App\Models\Member;
@@ -26,7 +30,10 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('member.create');
+        return view('member.create')->with([
+            'packages'=> PackageType::LIST,
+            'renewals'=> RenewalType::LIST,
+        ]);
     }
 
     /**

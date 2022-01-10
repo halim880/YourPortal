@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\UserRole;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,17 +20,19 @@ class ClientTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Client::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
         $user = User::create([
             'email'=>'client@gmail.com',
             'name'=> 'Client',
             'password'=> bcrypt('password'),
         ]);
+
         Client::create([
             'user_id'=> $user->id,
             'TIN'=> rand(1000000, 99999999),
             'phone'=> '01743 920880',
         ]);
 
-        $user->assignRole('client');
+        $user->assignRole(UserRole::CLIENT);
     }
 }

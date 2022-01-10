@@ -20,4 +20,12 @@ class Member extends Model
     public function users(){
         return $this->belongsToMany(User::class);
     }
+
+    public function subscription(){
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function getCurrentPackageName() : string {
+        return $this->subscription->package->name;
+    }
 }

@@ -9,13 +9,7 @@
                 <span>
                     <span class="account-user-name">{{Auth::user()->name}}</span>
                     <span class="account-position">
-                        @if (Auth::user()->isAdmin())
-                            Admin
-                        @elseif (Auth::user()->isUser())
-                            User
-                        @elseif (Auth::user()->isClient())
-                            Client
-                        @endif
+                        {{Auth::user()->role}}
                     </span>
                 </span>
             </a>

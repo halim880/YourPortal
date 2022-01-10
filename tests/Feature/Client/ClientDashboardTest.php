@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Client;
 
+use App\Helpers\UserRole;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,11 +15,8 @@ class ClientDashboardTest extends TestCase
     use DatabaseMigrations;
     public function setUp():void{
         parent::setUp();
-
-        Role::create(['name'=> 'client']);
         $this->withoutExceptionHandling();
-
-        $this->client = User::factory()->create()->assignRole('client');
+        $this->client = User::factory()->create()->assignRole(UserRole::CLIENT);
     }
 
     public function test_client_has_access_to_dashboard(){

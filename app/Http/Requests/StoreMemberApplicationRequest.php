@@ -30,8 +30,11 @@ class StoreMemberApplicationRequest extends FormRequest
             'member_email'=> ['required', 'email'],
             'member_phone'=> ['required'],
             'member_logo'=> ['nullable'],
-            'admin_name'=> ['required', 'string'],
             'admin_email'=> ['required', 'email', 'unique:users,email', 'unique:member_applications,admin_email'],
+            'first_name'=> ['required', 'string'],
+            'last_name'=> ['required', 'string'],
+            'subscription_name'=> ['required', 'string'],
+            'plan_name'=> ['required', 'string']
         ];
     }
 
@@ -41,8 +44,11 @@ class StoreMemberApplicationRequest extends FormRequest
             'name'=> request('name'),
             'member_email'=> request('member_email'),
             'member_phone'=> request('member_phone'),
-            'admin_name'=> request('admin_name'),
             'admin_email'=> request('admin_email'),
+            'first_name'=> request('first_name'),
+            'last_name'=> request('last_name'),
+            'subscription_name'=> request('subscription_name'),
+            'plan_name'=> request('plan_name'),
         ];
     }
 

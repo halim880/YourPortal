@@ -16,8 +16,18 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('s_type')->default(SubscriptionType::FREE_TRIAL);
-            $table->dateTime('exp_date')->default(now()->addDays(90));
+            $table->foreignId('package_id')
+                ->references('id')->on('packages')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreignId('member_id')
+                ->references('id')
+                ->on('members')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->dateTime('exp_date');
             $table->timestamps();
         });
     }

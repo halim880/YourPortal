@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use UserRole;
+use App\Helpers\UserRole;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable;
 
     const IMAGE_PATH = 'images/users/';
 
@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
+        'u_role'
     ];
 
     /**
@@ -65,30 +66,36 @@ class User extends Authenticatable
 
 
     // Roles
-    public function isSystemAdmin(){
-        $this->hasRole(UserRole::SYSTEM_ADMIN);
-    }
-    public function isSuperAdmin(){
-        return $this->hasRole('super_admin');
-    }
-    public function isAdmin(){
-        return $this->hasRole('admin');
-    }
-    public function isUser(){
-        return $this->hasRole('user');
-    }
-    public function isClient(){
-        return $this->hasRole('client');
-    }
-    public function getClientIdAttribute(){
-        return $this->client->id;
+    public function assignRole(int $role){
+        $this->u_role=$role;
+        $this->save();
+        return $this;
     }
 
-    public function hasRole($role){
+    public function hasRole(int $role) : bool{
         return $this->u_role == $role;
     }
 
-    public function getRoleAttribute(){
-        UserRole::getName($this->u_role);
+    public function isSystemAdmin() : bool{
+        return $this->hasRole(UserRole::SYSTEM_ADMIN);
+    }
+    public function isSuperAdmin() : bool{
+        return $this->hasRole(UserRole::MEMBER_SUPER_ADMIN);
+    }
+    public function isAdmin() : bool{
+        return $this->hasRole(UserRole::MEMBER_ADMIN);
+    }
+    public function isUser() : bool{
+        return $this->hasRole(UserRole::MEMBER_USER);
+    }
+    public function isClient() : bool{
+        return $this->hasRole(UserRole::CLIENT);
+    }
+    public function getClientIdAttribute() : int {
+        return $this->client->id;
+    }
+
+    public function getRoleAttribute() : string{
+        return UserRole::getName($this->u_role);
     }
 }

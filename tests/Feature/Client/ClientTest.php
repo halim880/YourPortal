@@ -21,8 +21,6 @@ class ClientTest extends TestCase
 
     public function test_client_can_be_stored(){
         $this->withoutExceptionHandling();
-        
-        Role::create(['name'=> 'client']);
         $data = [
             'name'=> "test client",
             'email'=> 'test@gmail.com',

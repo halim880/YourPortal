@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\UserRole;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,14 +20,12 @@ class UsersTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         User::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
-        Role::firstOrCreate(['name'=> 'super_admin']);
         
         $user = User::create([
-            'name'=> "Super admin",
-            'email'=> 'super@admin.com',
+            'name'=> "Test User",
+            'email'=> 'system@admin.com',
             'password'=> bcrypt('password'),
         ]);
-        $user->assignRole('super_admin');
+        $user->assignRole(UserRole::SYSTEM_ADMIN);
     }
 }

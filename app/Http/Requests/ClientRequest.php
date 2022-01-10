@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Events\UserCreatedEvent;
+use App\Helpers\UserRole;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -47,6 +48,6 @@ class ClientRequest extends FormRequest
             'phone'=> $this->phone
         ]);
         UserCreatedEvent::dispatch($user);
-        $user->assignRole('client');
+        $user->assignRole(UserRole::CLIENT);
     }
 }

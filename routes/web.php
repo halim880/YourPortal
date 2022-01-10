@@ -4,6 +4,7 @@ use App\Http\Controllers\Client\TaskController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Member\MemberUserController;
 use App\Http\Controllers\Member\TaskController as MemberTaskController;
@@ -18,11 +19,7 @@ use App\Http\Controllers\Web\WebController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
-
 require_once __DIR__."/system_admin.php";
-
-
 
 
 /*
@@ -56,6 +53,8 @@ Route::post('user/stroe', [StoreUserController::class, 'storeInvitedUser'])->nam
 
 Route::prefix('member/')->name('member.')->group(function(){
     Route::get('/member-dashboard', [MemberDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/member-inbox', [MemberDashboardController::class, 'inbox'])->name('message.inbox');
+
     Route::get('invite-user', [MemberDashboardController::class, 'createInvitation'])->name('invite_user');
     
     Route::post('send/invitation', [MemberInvitationController::class, 'inviteUser'])->name('send.invitation');
@@ -68,6 +67,10 @@ Route::prefix('member/')->name('member.')->group(function(){
     
     Route::get('/task-assigned', [MemberTaskController::class, 'assignedTasks'])->name('user.tasks.assigned');
     Route::get('/select-user/{task_id}', [MemberTaskController::class, 'taskAssignForm'])->name('task.assign_form');
+
+    Route::get('/files', [FileController::class, 'index'])->name('files.index');
+
+    Route::post('/folder/store', [FileController::class, 'storeFolder'])->name('folder.store');
 });
 
 Route::get('/register-user', [MemberInvitationController::class, 'createRegisterUser'])->name('invited_user.create');
@@ -84,9 +87,10 @@ Route::get('/register-user', [MemberInvitationController::class, 'createRegister
 Route::prefix('client/')->name('client.')->middleware('client')->group(function (){
     Route::resource('tasks', TaskController::class);
     Route::get('/dashboard', [ClientDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/client-inbox', [ClientDashboardController::class, 'inbox'])->name('message.inbox');
 });
 
 
 Route::get('/test', function (){
-    return view('test');
+    return view('message.chat_rooms');
 });

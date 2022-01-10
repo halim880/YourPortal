@@ -24,7 +24,7 @@
                       
                     @if ($faqs->count()<1)
                     <tr>
-                        <td colspan="4" class="text-center"><b>No FAQ is created yet</b></td>
+                        <td colspan="4" class="text-center"><b>No FAQs</b></td>
                     </tr>
                     @endif
                   

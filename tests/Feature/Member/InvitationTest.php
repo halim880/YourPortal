@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Member;
 
+use App\Helpers\UserRole;
 use App\Mail\Member\MemberInvitationMail;
 use App\Models\Member;
 use App\Models\User;
@@ -20,15 +21,12 @@ class InvitationTest extends TestCase
         Mail::fake();
 
         $this->withoutExceptionHandling();
-        Role::create(['name'=> 'super_admin']);
-        Role::create(['name'=> 'admin']);
-        Role::create(['name'=> 'user']);
-        Role::create(['name'=> 'client']);
+
 
         $this->admin = User::factory()->create(['email'=>'admin@gmail.com']);
         $this->member = Member::factory()->create();
         $this->admin->members()->attach($this->member->id);
-        $this->admin->assignRole('admin');
+        $this->admin->assignRole(UserRole::MEMBER_SUPER_ADMIN);
 
     }
     public function test_member_admin_can_send_invitation()

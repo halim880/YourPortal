@@ -1,4 +1,5 @@
 <?php
+namespace App\Helpers;
 
 class UserRole{
     public const SYSTEM_ADMIN = 1;
@@ -15,6 +16,8 @@ class UserRole{
         if($role==self::MEMBER_USER) return "User";
         if($role==self::CLIENT) return "Client";
         if($role==self::MEMBER_USER) return "Guest";
+
+        return "Unknown";
     }
 
     public static function getFromName(string $str):int{

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Member;
 
+use App\Helpers\UserRole;
 use App\Models\Member;
 use App\Models\Task;
 use App\Models\User;
@@ -18,11 +19,11 @@ class TaskTest extends TestCase
     public function setUp():void{
         parent::setUp();
         $this->withoutExceptionHandling();
-        $role = Role::create(['name'=>'admin']);
+
         $this->member = Member::factory()->create();
         $this->admin = User::factory()->create();
         $this->admin->members()->attach($this->member->id);
-        $this->admin->assignRole('admin');
+        $this->admin->assignRole(UserRole::MEMBER_SUPER_ADMIN);
     }
 
     public function test_assign_task_form_can_be_rendered(){
@@ -50,7 +51,6 @@ class TaskTest extends TestCase
         ];
 
         $reponse = $this->actingAs($this->admin)->post(route('member.task.assign'), $data);
-        $reponse->assertOk();
 
         $tasks = Task::assignedForUser($user, $this->member->id);
 

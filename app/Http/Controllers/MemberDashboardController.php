@@ -17,4 +17,8 @@ class MemberDashboardController extends Controller
     public function createInvitation(){
         return view('member.invite_user');
     }
+
+    public function inbox(){
+        return view('member.message.inbox');
+    }
 }

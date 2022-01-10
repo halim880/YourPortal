@@ -9,17 +9,17 @@ use Illuminate\Http\Request;
 class FaqController extends Controller
 {
     public function index(){
-        return view('super_admin.faq.index')->with([
+        return view('system_admin.faq.index')->with([
             'faqs'=> Faq::orderBy('priority', 'ASC')->get(),
         ]);
     }
     
     public function create(){
-        return view('super_admin.faq.create');
+        return view('system_admin.faq.create');
     }
 
     public function update(){
-        return view('super_admin.faq.update');
+        return view('system_admin.faq.update');
     }
 
     public function store(FaqRequest $request){

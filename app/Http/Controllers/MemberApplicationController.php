@@ -16,7 +16,7 @@ class MemberApplicationController extends Controller
      */
     public function applicationList()
     {
-        return view('super_admin.member_application.application_list')->with([
+        return view('system_admin.member_application.application_list')->with([
             'applications'=> MemberApplication::latest()->get(), 
         ]);
     }
@@ -53,7 +53,7 @@ class MemberApplicationController extends Controller
      */
     public function show(MemberApplication $application)
     {
-        return view('super_admin.member_application.show')->with([
+        return view('system_admin.member_application.show')->with([
             'application'=> $application,
         ]);
     }

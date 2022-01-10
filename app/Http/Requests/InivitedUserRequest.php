@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Events\UserCreatedEvent;
+use App\Helpers\UserRole;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,7 @@ class InivitedUserRequest extends FormRequest
     public function storeUser(){
         try {
             $user = User::create($this->toArray());
-            $user->assignRole('user');
+            $user->assignRole(UserRole::MEMBER_USER);
             $user->members()->attach($this->member_id);
             // UserCreatedEvent::dispatch($user);
             

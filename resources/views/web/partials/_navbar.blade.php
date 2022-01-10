@@ -34,10 +34,12 @@
                     @endguest
 
                     @auth
-                        @if (Auth::user()->hasRole('super_admin'))
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('super_admin.dashboard')}}">Dashboard</a></li>
+                        @if (Auth::user()->isSystemAdmin())
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('system_admin.dashboard')}}">Dashboard</a></li>
                         @elseif(Auth::user()->isAdmin() || Auth::user()->isUser())
                             <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('member.dashboard')}}">Dashboard</a></li>
+                        @elseif(Auth::user()->isClient())
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="{{route('client.dashboard')}}">Dashboard</a></li>
                         @endif
                     @endauth
                 </li>

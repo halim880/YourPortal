@@ -16,7 +16,7 @@ class IsSystemAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->hasRole('super_admin')) {
+        if (auth()->user()->isSystemAdmin()) {
             return $next($request);
         }
         abort(401, "You are not allowed for this action");

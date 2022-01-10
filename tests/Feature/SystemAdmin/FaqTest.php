@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\SystemAdmin;
 
+use App\Helpers\UserRole;
 use App\Models\Faq;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -19,8 +20,7 @@ class FaqTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->admin = User::factory()->create();
-        Role::create(['name'=>'system_admin']);
-        $this->admin->assignRole('system_admin');
+        $this->admin->assignRole(UserRole::SYSTEM_ADMIN);
     }
 
     public function test_faq_create_page_can_be_rendered(){

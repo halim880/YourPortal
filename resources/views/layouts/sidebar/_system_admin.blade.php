@@ -27,7 +27,7 @@
             <li class="side-nav-title side-nav-item">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="{{route('super_admin.dashboard')}}" class="side-nav-link">
+                <a href="{{route('system_admin.dashboard')}}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Dashboards </span>
                 </a>
@@ -42,16 +42,21 @@
                 <div class="collapse" id="sidebarMembers">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{route('super_admin.member_list')}}">List</a>
+                            <a href="{{route('system_admin.member_list')}}">List</a>
                         </li>
                         <li>
-                            <a href="{{route('super_admin.member_applications')}}">Requests <span class="badge rounded-pill badge-success-lighten font-10 float-end">New</span></a>
+                            <a href="{{route('system_admin.member_applications')}}">Requests <span class="badge rounded-pill badge-success-lighten font-10 float-end">New</span></a>
                         </li>
                     </ul>
                 </div>
             </li>
 
-
+            <li class="side-nav-item">
+                <a href="{{route('system_admin.inbox')}}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Messages </span>
+                </a>
+            </li>
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
@@ -62,14 +67,14 @@
                 <div class="collapse" id="sidebarTasks">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{route('super_admin.task.list')}}">List</a>
+                            <a href="{{route('system_admin.task.list')}}">List</a>
                         </li>
                     </ul>
                 </div>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{route('super_admin.faq.index')}}" class="side-nav-link">
+                <a href="{{route('system_admin.faq.index')}}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> FAQs </span>
                 </a>

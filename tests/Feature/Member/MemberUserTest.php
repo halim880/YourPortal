@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Member;
 
+use App\Helpers\UserRole;
 use App\Models\Member;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -18,14 +19,14 @@ class MemberUserTest extends TestCase
         parent::setUp();
         $this->withoutExceptionHandling();
 
-        $role = Role::create(['name'=>'admin']);
         $this->member = Member::factory()->create();
         $this->admin = User::factory()->create();
         $this->admin->members()->attach($this->member->id);
-        $this->admin->assignRole('admin');
+        $this->admin->assignRole(UserRole::MEMBER_SUPER_ADMIN);
     }
 
     public function test_member_users_can_see_user_list(){
+        
         User::factory()->create()->members()->attach($this->member->id);
         User::factory()->create()->members()->attach($this->member->id);
         User::factory()->create()->members()->attach($this->member->id);

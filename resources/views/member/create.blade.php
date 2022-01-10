@@ -1,7 +1,7 @@
-@extends('new_layout.app')
-@section('content')
+@extends('layouts.frontend.base')
+@section('root')
         <!-- Registration Form Section -->
-        <section id="bussiness_registration">
+        <section id="member_registration">
             <div class="container">
              <div class="card">
                <div class="card-body p-4">
@@ -20,23 +20,38 @@
                         </div>
                     @endif
                     <div class="col-md-6">
-  
-                        {{-- Bussiness Info --}}
-                        <h3>Bussiness Information</h3>
-                        <div id="bussiness_info">
+                        {{-- member Info --}}
+                        <h3>Member Information</h3>
+                        <div id="member_info">
                           <hr>
                           <div class="form-group mb-3">
-                              <label for="name">Bussiness Name</label>
+                              <label for="name">Member Name</label>
                               <input type="text" class="form-control" id="name" name="name" required value="{{old('name')}}">
                           </div>
                           <div class="form-group mb-3">
-                            <label for="email">Bussiness Email</label>
-                            <input type="email" class="form-control" id="email" name="bussiness_email" required value="{{old('bussiness_email')}}">
+                            <label for="email">Member Email</label>
+                            <input type="email" class="form-control" id="email" name="member_email" required value="{{old('member_email')}}">
                           </div>
                           <div class="form-group mb-3">
-                              <label for="exampleInputEmail1">Bussiness Phone</label>
-                              <input type="text" class="form-control" id="phonenumber" required name="bussiness_phone" value="{{old('bussiness_phone')}}">
+                              <label for="exampleInputEmail1">Member Phone</label>
+                              <input type="text" class="form-control" id="phonenumber" required name="member_phone" value="{{old('member_phone')}}">
                           </div>
+                          <div class="form-group mb-3">
+                            <label for="subscription_type">Choose Subscription type</label>
+                            <select class="form-select" name="subscription_name" id="subscription_type">
+                                @foreach ($packages as $package)
+                                <option value="{{$package}}" @if (makeSlug($package) == "free-trial") selected @endif>{{$package}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                            <div class="form-group mb-3">
+                              <label for="plan_type">Choose Plan</label>
+                              <select class="form-select" name="plan_name" id="plan_type">
+                                  @foreach ($renewals as $renewal)
+                                  <option value="{{$renewal}}">{{$renewal}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -45,11 +60,15 @@
                       <div id="admin_info">
                         <hr>
                         <div class="form-group mb-3">
-                            <label for="admin_name">Admin Name</label>
-                            <input type="text" class="form-control" id="admin_name" name="admin_name" required value="{{old('admin_name')}}">
+                            <label for="first_name">First Name (Admin)</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required value="{{old('first_name')}}">
                         </div>
                         <div class="form-group mb-3">
-                          <label for="email">Bussiness Email</label>
+                          <label for="last_name">Last Name (Admin)</label>
+                          <input type="text" class="form-control" id="last_name" name="last_name" required value="{{old('name')}}">
+                        </div>
+                        <div class="form-group mb-3">
+                          <label for="email">Admin Email</label>
                           <input type="email" class="form-control" id="email" name="admin_email" required value="{{old('admin_email')}}">
                         </div>
                       </div>
@@ -68,13 +87,13 @@
 @endsection
 
 <style>
-    #bussiness_registration{
+    #member_registration{
       font-family: 'Poppins', serif;
       margin-top: 50px;
       min-height: 90vh;
     }
 
-    #bussiness_registration .bussiness_registration{
+    #member_registration .member_registration{
       
     }
 

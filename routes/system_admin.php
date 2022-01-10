@@ -2,19 +2,21 @@
 
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MemberApplicationController;
-use App\Http\Controllers\Permission\RoleController;
-use App\Http\Controllers\SuperAdmin\DashboardController;
-use App\Http\Controllers\SuperAdmin\TaskController;
+use App\Http\Controllers\SystemAdmin\DashboardController;
+use App\Http\Controllers\SystemAdmin\TaskController;
 use Illuminate\Support\Facades\Route;
 /*
 |----------------------------------------------------------------------------------------------------
 | System Admin Route
 |----------------------------------------------------------------------------------------------------
 */
+
+
+
 Route::prefix('/system_admin')->name('system_admin.')->middleware('system_admin')->group(function(){
-    Route::post('role-create', [RoleController::class, 'store'])->name('role.store');
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/member-list', [DashboardController::class, 'memberList'])->name('member_list');
+    Route::get('/inbox', [DashboardController::class, 'inbox'])->name('inbox');
     
     //Member Application
     Route::get('/member/{application}', [MemberApplicationController::class, 'show'])->name('member_application.show');

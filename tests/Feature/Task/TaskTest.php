@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Task;
 
+use App\Helpers\UserRole;
 use App\Models\member;
 use App\Models\Client;
 use App\Models\Task;
@@ -17,13 +18,11 @@ class TaskTest extends TestCase
         parent::setUp();
 
         $this->withoutExceptionHandling();
-        Role::create(['name'=> 'client']);
-        Role::create(['name'=> 'admin']);
-        Role::create(['name'=> 'member']);
-        $this->admin = User::factory()->create()->assignRole('admin');
+
+        $this->admin = User::factory()->create()->assignRole(UserRole::MEMBER_SUPER_ADMIN);
 
 
-        $this->client = User::factory()->create()->assignRole('client');
+        $this->client = User::factory()->create()->assignRole(UserRole::CLIENT);
         Client::factory()->create(['user_id'=> $this->client->id]);
     }
 

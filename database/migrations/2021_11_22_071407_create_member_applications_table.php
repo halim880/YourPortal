@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\ApplicationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,9 +19,12 @@ class CreateMemberApplicationsTable extends Migration
             $table->string('name');
             $table->string('member_email');
             $table->string('member_phone');
-            $table->string('admin_name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('admin_email');
-            $table->string('status')->default('pending');
+            $table->string('status')->default(ApplicationStatus::PENDING);
+            $table->string('subscription_name');
+            $table->string('plan_name');
             $table->timestamps();
         });
     }

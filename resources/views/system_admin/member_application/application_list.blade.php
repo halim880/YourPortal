@@ -9,40 +9,44 @@
                 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Bussiness name</th>
+                            <th>Member name</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Admin</th>
-                            <th>Admmin email</th>
+                            <th>Admin Name</th>
+                            <th>Subscription</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                 
                 
                     <tbody>
-                        @foreach ($applications as $application)
-                        <tr>
-                            <td>{{$application->name}}</td>
-                            <td>{{$application->bussiness_email}}</td>
-                            <td>{{$application->bussiness_phone}}</td>
-                            <td>{{$application->admin_name}}</td>
-                            <td>{{$application->admin_email}}</td>
-                            @if ($application->status=='approved')
-                                <td>
-                                    <button disabled class="btn btn-secondary">Approved</button>
-                                </td>
-                            @elseif($application->status=='rejected')
-                            <td>
-                                <button disabled class="btn btn-warning">Rejected</button>
-                            </td>
-                            @else
-                            <td>
-                                <a href="{{route('bussiness_application.approve', $application)}}" class="btn btn-sm btn-success">Approve</a>
-                                <a href="{{route('bussiness.application.reject', $application)}}" class="btn btn-sm btn-danger">Reject</a>
-                            </td>
-                            @endif
-                        </tr>
-                        @endforeach
+                        @if ($applications->count()<1)
+                            <tr>
+                                <td colspan="5" style="text-align: center">No Member Request</td>
+                            </tr>
+                        @else
+                            @foreach ($applications as $application)
+                            <tr>
+                                <td>{{$application->name}}</td>
+                                <td>{{$application->member_email}}</td>
+                                <td>{{$application->admin_name}}</td>
+                                <td>{{$application->subscription_name}}</td>
+                                @if ($application->status=='approved')
+                                    <td>
+                                        <button disabled class="btn btn-secondary">Approved</button>
+                                    </td>
+                                @elseif($application->status=='rejected')
+                                    <td>
+                                        <button disabled class="btn btn-warning">Rejected</button>
+                                    </td>
+                                @else
+                                    <td>
+                                        <a href="{{route('system_admin.member_application.approve', $application)}}" class="btn btn-sm btn-success">Approve</a>
+                                        <a href="{{route('system_admin.member_application.reject', $application)}}" class="btn btn-sm btn-danger">Reject</a>
+                                    </td>
+                                @endif
+                            </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>  
             </div>

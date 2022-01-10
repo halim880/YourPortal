@@ -19,6 +19,7 @@
     <link href="{{asset("assets/css/app.min.css")}}" rel="stylesheet" type="text/css" id="light-style">
     <link href="{{asset("assets/css/app-dark.min.css")}}" rel="stylesheet" type="text/css" id="dark-style">
 
+
 </head>
 
 <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
@@ -40,6 +41,7 @@
 
     <!-- demo app -->
     <script src="{{asset("assets/js/pages/demo.dashboard.js")}}"></script>
+    <script src="{{asset("assets/js/MyJS/api.js")}}"></script>
     <!-- end demo js-->
 </body>
 </html>

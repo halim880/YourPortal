@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Member\User;
 
+use App\Helpers\UserRole;
 use App\Models\Member;
 use App\Models\Task;
 use App\Models\User;
@@ -19,17 +20,14 @@ class TaskTest extends TestCase
         parent::setUp();
         $this->withoutExceptionHandling();
 
-        Role::create(['name'=>'admin']);
-        Role::create(['name'=>'user']);
-
         $this->member = Member::factory()->create();
         $this->admin = User::factory()->create();
         $this->admin->members()->attach($this->member->id);
-        $this->admin->assignRole('admin');
+        $this->admin->assignRole(UserRole::MEMBER_SUPER_ADMIN);
 
         $this->user = User::factory()->create();
         $this->user->members()->attach($this->member->id);
-        $this->user->assignRole('user');
+        $this->user->assignRole(UserRole::MEMBER_USER);
     }
 
     public function test_member_user_can_see_assigned_tasks(){

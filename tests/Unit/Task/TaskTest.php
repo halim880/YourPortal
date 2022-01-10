@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Task;
 
+use App\Helpers\UserRole;
 use App\Models\Client;
 use App\Models\Member;
 use App\Models\Task;
@@ -15,21 +16,21 @@ class TaskTest extends TestCase
     use DatabaseMigrations;
     public function setUp():void{
         parent::setUp();
-        Role::create(['name'=>'admin']);
+
         $this->member = Member::factory()->create();
         $this->admin = User::factory()->create();
         $this->admin->members()->attach($this->member->id);
-        $this->admin->assignRole('admin');
+        $this->admin->assignRole(UserRole::MEMBER_SUPER_ADMIN);
     }
 
     public function test_task_can_be_created(){
         
-        $c = Client::factory()->create();
+        $client = Client::factory()->create();
 
         $data = [
             'title'=> 'this is a task title',
             'description'=> 'This the description of the task',
-            'client_id'=> $c->id,
+            'client_id'=> $client->id,
         ];
         $task = Task::create($data);
         $this->assertFalse($task->isAssigned());

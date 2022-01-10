@@ -2,8 +2,14 @@
 
 namespace Tests\Feature\Member;
 
+use App\Helpers\PackageType;
+use App\Helpers\PlanType;
+use App\Helpers\RenewalType;
+use App\Helpers\SubscriptionType;
+use App\Helpers\UserRole;
 use App\Mail\BussinessApplicationReceived;
 use App\Mail\MemberApplicationReceived;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Notifications\Bussiness\NotifyMemberApplicationCreated;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -23,10 +29,9 @@ class MemberAplicationTest extends TestCase
         Mail::fake();
 
         $this->withoutExceptionHandling();
-        Role::create(['name'=> 'super_admin']);
 
         $this->user = User::factory()->create();
-        $this->user->assignRole('super_admin');
+        $this->user->assignRole(UserRole::SYSTEM_ADMIN);
     }
 
     public function test_user_can_apply_for_membership()
@@ -35,8 +40,11 @@ class MemberAplicationTest extends TestCase
             "name"=> "PopyItSoft",
             'member_email'=> "member@gmail.com",
             'member_phone'=> "+8801743920880",
-            'admin_name'=> 'Akash',
+            'first_name'=> 'Akash',
+            'last_name'=> 'Ahmad',
             'admin_email'=> 'admin@gmail.com',
+            'subscription_name'=> PackageType::FREE_TRIAL,
+            'plan_name'=> RenewalType::MONTHLY,
         ];
 
         $this->post(route('member_application.store'), $data)->assertOk();

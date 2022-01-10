@@ -1,7 +1,12 @@
 <?php
 
-namespace Tests\Feature\Super_admin;
+namespace Tests\Feature\SystemAdmin;
 
+use App\Helpers\PackageType;
+use App\Helpers\PlanType;
+use App\Helpers\RenewalType;
+use App\Helpers\SubscriptionType;
+use App\Helpers\UserRole;
 use App\Mail\ApplicationApprovedMail;
 use App\Models\Member\MemberApplication;
 use App\Models\User;
@@ -23,45 +28,40 @@ class MemberApplicationTest extends TestCase
         Mail::fake();
 
         $this->withoutExceptionHandling();
-        Role::create(['name'=> 'super_admin']);
 
         $this->admin = User::factory()->create();
-        $this->admin->assignRole('super_admin');
-
-        Role::create(['name'=> 'admin']);
+        $this->admin->assignRole(UserRole::SYSTEM_ADMIN);
     }
 
-    public function test_application_can_be_seen_by_super_admin(){
-        $data = [
-            "name"=> "PopyItSoft",
-            'member_email'=> "member@gmail.com",
-            'member_phone'=> "+8801743920880",
-            'admin_name'=> 'Akash',
-            'admin_email'=> 'admin@gmail.com',
-        ];
-
-        $application = MemberApplication::create($data);
+    public function test_application_can_be_seen_by_system_admin(){
+        $application = MemberApplication::create($this->applicationData());
         
-        $response = $this->actingAs($this->admin)->get(route('super_admin.member_application.show', $application));
+        $response = $this->actingAs($this->admin)->get(route('system_admin.member_application.show', $application));
         $response->assertOk();
-        $response->assertViewIs('super_admin.member_application.show');
+        $response->assertViewIs('system_admin.member_application.show');
     }
 
-    public function test_super_admin_can_approve_application(){
-        $data = [
-            "name"=> "PopyItSoft",
-            'member_email'=> "member@gmail.com",
-            'member_phone'=> "+8801743920880",
-            'admin_name'=> 'Akash',
-            'admin_email'=> 'admin@gmail.com',
-        ];
+    public function test_system_admin_can_approve_application(){
 
-        $application = MemberApplication::create($data);
-        $response = $this->actingAs($this->admin)->get(route('super_admin.member_application.approve', $application));
+        $application = MemberApplication::create($this->applicationData());
+        $response = $this->actingAs($this->admin)->get(route('system_admin.member_application.approve', $application));
         $response->assertRedirect();
 
         Mail::assertSent(ApplicationApprovedMail::class, function($mail) use($application){
             return $mail->hasTo($application->admin_email);
         });
+    }
+
+    private function applicationData(){
+        return [
+            "name"=> "PopyItSoft",
+            'member_email'=> "member@gmail.com",
+            'member_phone'=> "+8801743920880",
+            'subscription_name'=> PackageType::FREE_TRIAL,
+            'plan_name'=> RenewalType::MONTHLY,
+            'first_name'=> 'Akash',
+            'last_name'=> 'Ahmad',
+            'admin_email'=> 'test.admin@gmail.com',
+        ];
     }
 }

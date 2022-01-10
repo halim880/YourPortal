@@ -33,9 +33,16 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="apps-chat.html" class="side-nav-link">
+                <a href="{{route('member.message.inbox')}}" class="side-nav-link">
                     <i class="uil-comments-alt"></i>
                     <span> Message </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{route('member.files.index')}}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Files </span>
                 </a>
             </li>
 
@@ -68,7 +75,7 @@
                             <a href="{{route('member.task.suggested', ['member_id'=> Auth::user()->member()->id])}}">Suggested tasks</a>
                         </li>
                         <li>
-                            <a href="apps-tasks.html">On going tasks</a>
+                            <a href="">On going tasks</a>
                         </li>
                         @if (Auth::user()->isUser())
                             <li>

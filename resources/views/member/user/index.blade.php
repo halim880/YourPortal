@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->getRoleNames()->first()}}</td>
+                            <td>{{$user->role}}</td>
                             <td>
                                 <a href="" class="btn btn-primary">View</a>
                             </td>

@@ -29,11 +29,11 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 $user = Auth::user();
 
-                if($user->isSuperAdmin()){
-                    return redirect(route('super_admin.dashboard'));
+                if($user->isSystemAdmin()){
+                    return redirect(route('system_admin.dashboard'));
                 }
 
-                if($user->isAdmin() || $user->isUser()){
+                if($user->isSuperAdmin() || $user->isAdmin() || $user->isUser()){
                     return redirect(route('member.dashboard'));
                 }
 

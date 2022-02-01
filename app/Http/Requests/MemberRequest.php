@@ -36,7 +36,7 @@ class MemberRequest extends FormRequest
     public function store(){
         DB::transaction(function (){
             $user = User::create($this->toUserArray());
-            Member::create($this->toMemberArray());
+            Member::create($this->toMemberArray($user));
             UserCreatedEvent::dispatch($user);
         });
     }
@@ -49,8 +49,9 @@ class MemberRequest extends FormRequest
         ];
     }
 
-    private function toMemberArray(){
+    private function toMemberArray(User $user){
         return [
+            'admin_id'=> $user->id,
             'name'=> request('name'),
             'member_email'=> request('member_email'),
             'member_phone'=> request('member_phone'),

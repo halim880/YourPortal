@@ -8,8 +8,8 @@
                         <div class="text-center">
                             <h1 class="mt-0"><i class="mdi mdi-tag-multiple"></i></h1>
                             <h3>Choose your <span class="text-primary">Plan</span></h3>
-                            <p class="text-muted mt-2">Lorem ipsum dolor, sit amet consectetur a similique velit neque nihil 
-                                <br>describing your app, agency or business.</p>
+                            <p class="text-muted mt-2">The intelligent club wants to make this e-portal within easy reach of all accountants and bookkeepers. 
+                                <br>We have a plan to suit you based on your practice requirements.</p>
                         </div>
                     </div>
                 </div>

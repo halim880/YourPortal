@@ -11,6 +11,7 @@ class Member extends Model
     protected $table = 'members';
 
     protected $fillable = [
+        'admin_id',
         'name',
         'member_email',
         'member_phone',
@@ -25,7 +26,19 @@ class Member extends Model
         return $this->hasOne(Subscription::class);
     }
 
+    public function superAdmin(){
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
     public function getCurrentPackageName() : string {
         return $this->subscription->package->name;
+    }
+
+    public function getPaymentStatus() : string {
+        return strtoupper($this->subscription->payment_status);
+    }
+
+    public function getCurrentPlanName() : string {
+        return $this->subscription->plan->name;
     }
 }

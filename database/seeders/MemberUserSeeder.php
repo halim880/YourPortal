@@ -26,6 +26,7 @@ class MemberUserSeeder extends Seeder
         DB::statement('set foreign_key_checks = 1');
 
         $member = Member::factory()->create(['id'=> 1]);
+        
         $package = Package::first();
 
         SubscriptionService::createSubscription($member, $package);
@@ -37,7 +38,6 @@ class MemberUserSeeder extends Seeder
         ]);
         $user->assignRole(UserRole::MEMBER_SUPER_ADMIN);
         $user->members()->attach(1);
-
         $user = User::create([
             'email'=> 'member@admin.com',
             'name'=> 'Test User 3',

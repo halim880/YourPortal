@@ -6,13 +6,13 @@
         <div class="card">
             <div class="card-body p-3">
                 <h3>Member's Requests</h3>
-                <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
+                <table id="datatable-buttons" class="table table-striped dt-responsive">
                     <thead>
                         <tr>
                             <th>Member name</th>
                             <th>Email</th>
                             <th>Admin Name</th>
-                            <th>Subscription</th>
+                            <th>Package</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -29,7 +29,7 @@
                                 <td>{{$application->name}}</td>
                                 <td>{{$application->member_email}}</td>
                                 <td>{{$application->admin_name}}</td>
-                                <td>{{$application->subscription_name}}</td>
+                                <td>{{$application->getPackageName()}}</td>
                                 @if ($application->status=='approved')
                                     <td>
                                         <button disabled class="btn btn-secondary">Approved</button>

@@ -23,8 +23,8 @@ class CreateMemberApplicationsTable extends Migration
             $table->string('last_name');
             $table->string('admin_email');
             $table->string('status')->default(ApplicationStatus::PENDING);
-            $table->string('subscription_name');
-            $table->string('plan_name');
+            $table->foreignId('package_id')->references('id')->on('packages')->onDelete('cascade');
+            $table->foreignId('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->timestamps();
         });
     }

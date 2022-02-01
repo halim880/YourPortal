@@ -36,21 +36,18 @@ class ApplicationApprovedListener
 
         $pass = Str::random(6);
 
-        $userData = [
-            'name'=> $data->admin_name,
-            'email'=> $data->admin_email,
-            'password'=> bcrypt($pass),
-        ];
-
-        $memberData = [
-            'name'=> $data->name,
-            'member_email'=> $data->member_email,
-            'member_phone'=> $data->member_phone,
-        ];
-
-        DB::transaction(function() use($userData, $memberData, $pass){
-            $user = User::create($userData);
-            Member::create($memberData);
+        DB::transaction(function() use($data, $pass){
+            $user = User::create([
+                'name'=> $data->admin_name,
+                'email'=> $data->admin_email,
+                'password'=> bcrypt($pass),
+            ]);
+            Member::create([
+                'admin_id'=> $user->id,
+                'name'=> $data->name,
+                'member_email'=> $data->member_email,
+                'member_phone'=> $data->member_phone,
+            ]);
 
             $user->assignRole('admin');
 

@@ -14,9 +14,6 @@ class Package extends Model
 
     protected $fillable = [
         'name',
-        'renewal',
-        'day_limit',
-        'price',
         'admin_limit',
         'user_limit'
     ];
@@ -24,18 +21,6 @@ class Package extends Model
     /******************** Getters *******************/
     public function getName() :  string {
         return $this->name;
-    }
-
-    public function getRenwal() : string {
-        return $this->renewal;
-    }
-
-    public function getDayLimit() : int {
-        return (int) $this->day_limit;
-    }
-
-    public function getPrice() : int {
-        return (int) $this->price;
     }
 
     public function getAdminLimit() : int {

@@ -20,6 +20,11 @@ class CreateSubscriptionsTable extends Migration
                 ->references('id')->on('packages')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+                
+            $table->foreignId('plan_id')
+                ->references('id')->on('plans')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreignId('member_id')
                 ->references('id')
@@ -27,6 +32,7 @@ class CreateSubscriptionsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
+            $table->string('payment_status')->default(PaymentStatus::UNPAYED);
             $table->dateTime('exp_date');
             $table->timestamps();
         });

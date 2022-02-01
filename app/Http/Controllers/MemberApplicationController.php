@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Events\ApplicationApprovedEvent;
+use App\Events\UserCreatedEvent;
+use App\Helpers\UserRole;
 use App\Models\Member\MemberApplication;
 use App\Http\Requests\StoreMemberApplicationRequest;
 use App\Http\Requests\UpdateMemberApplicationRequest;
+use App\Mail\ApplicationApprovedMail;
+use App\Models\Member;
+use App\Models\Package;
+use App\Models\User;
+use App\Services\SubscriptionService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class MemberApplicationController extends Controller
 {
@@ -93,9 +104,38 @@ class MemberApplicationController extends Controller
     }
 
     public function approve(MemberApplication $application){
-        $application->status = 'approved';
-        $application->update();
-        ApplicationApprovedEvent::dispatch($application);
+
+        DB::transaction(function() use($application){
+            $pass = Str::random(6);
+
+            $user = User::create([
+                'name'=> $application->admin_name,
+                'email'=> $application->admin_email,
+                'password'=> bcrypt($pass),
+            ]);
+
+            $member = Member::create([
+                'admin_id'=> $user->id,
+                'name'=> $application->name,
+                'member_email'=> $application->member_email,
+                'member_phone'=> $application->member_phone,
+            ]);
+            
+            $package = Package::first();
+            
+            SubscriptionService::createSubscription($member, $application->package_id, $application->plan_id);
+
+            $user->assignRole(UserRole::MEMBER_SUPER_ADMIN);
+
+            UserCreatedEvent::dispatch($user);
+
+            $application->status = 'approved';
+            $application->update();
+
+            Mail::to($user->email)->send(new ApplicationApprovedMail($user, $pass));
+        });
+
+
         return redirect()->back();
     }
     public function reject(MemberApplication $application){

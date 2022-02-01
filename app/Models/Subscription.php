@@ -19,9 +19,13 @@ class Subscription extends Model
 
     protected $fillable = [
         'package_id',
+        'plan_id',
         'member_id',
+        'payment_status',
         'exp_date'
     ];
+
+
 
     
     /********************************** <Setters> **********************************/
@@ -69,6 +73,10 @@ class Subscription extends Model
 
     public function package(){
         return $this->belongsTo(Package::class);
+    }
+
+    public function plan(){
+        return $this->belongsTo(Plan::class);
     }
     /********************************** </Relationship> *******************************/
 

@@ -29,6 +29,36 @@ class FaqTest extends TestCase
         $response->assertViewIs('system_admin.faq.create');
     }
 
+    public function test_faq_edit_page_can_be_rendered(){
+
+        $faq = Faq::create([
+            'question' => 'This is a question',
+            'answer' => 'This is the answer',
+            'priority'=> 1,
+        ]);
+
+        $response = $this->actingAs($this->admin)->get(route('system_admin.faq.edit', $faq));
+        $response->assertOk();
+        $response->assertViewIs('system_admin.faq.edit');
+    }
+
+    public function test_faq_can_be_updated(){
+
+        $faq = Faq::create([
+            'question' => 'This is a question',
+            'answer' => 'This is the answer',
+            'priority'=> 1,
+        ]);
+
+        $response = $this->actingAs($this->admin)->put(route('system_admin.faq.update', $faq),[
+            'question' => 'This is a question',
+            'answer' => 'This is the answer',
+            'priority'=> 1,
+        ]);
+
+        $response->assertOk();
+    }
+
     public function test_faq_index_page_can_be_rendered(){
         $response = $this->actingAs($this->admin)->get(route('system_admin.faqs.index'));
         $response->assertOk();

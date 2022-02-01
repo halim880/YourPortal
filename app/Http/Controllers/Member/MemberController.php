@@ -9,6 +9,8 @@ use App\Helpers\SubscriptionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MemberRequest;
 use App\Models\Member;
+use App\Models\Package;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -31,8 +33,8 @@ class MemberController extends Controller
     public function create()
     {
         return view('member.create')->with([
-            'packages'=> PackageType::LIST,
-            'renewals'=> RenewalType::LIST,
+            'packages'=> Package::all(),
+            'plans'=> Plan::all(),
         ]);
     }
 

@@ -52,32 +52,62 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="{{route('system_admin.inbox')}}" class="side-nav-link">
-                    <i class="uil-comments-alt"></i>
-                    <span> Messages </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
-                    <i class="uil-clipboard-alt"></i>
-                    <span> Tasks </span>
+                <a data-bs-toggle="collapse" href="#sidebarPackage" aria-expanded="false" aria-controls="sidebarPackage" class="side-nav-link">
+                    <i class="uil-briefcase"></i>
+                    <span> Package </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarTasks">
+                <div class="collapse" id="sidebarPackage">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{route('system_admin.task.list')}}">List</a>
+                            <a href="{{route('system_admin.package.index')}}">List</a>
+                        </li>
+                        <li>
+                            <a href="{{route('system_admin.plan.index')}}">Plans</a>
+                        </li>
+                        <li>
+                            <a href="{{route('system_admin.pricing.index')}}">Pricing</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPayment" aria-expanded="false" aria-controls="sidebarPayment" class="side-nav-link">
+                    <i class="uil-briefcase"></i>
+                    <span> Payment </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarPayment">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('system_admin.payment.index')}}">Payment History</a>
+                        </li>
+                        <li>
+                            <a href="{{route('system_admin.payment.create')}}">Receive Payment</a>
                         </li>
                     </ul>
                 </div>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{route('system_admin.faq.index')}}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
-                    <span> FAQs </span>
+                <a data-bs-toggle="collapse" href="#sidebarWeb" aria-expanded="false" aria-controls="sidebarWeb" class="side-nav-link">
+                    <i class="uil-briefcase"></i>
+                    <span>Web Settings</span>
+                    <span class="menu-arrow"></span>
                 </a>
+                <div class="collapse" id="sidebarWeb">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{route('system_admin.web_settings.faq.index')}}">FAQs</a>
+                        </li>
+                        <li>
+                            <a href="{{route('system_admin.web_settings.service_info.index')}}">Service Info</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
 
         </ul>

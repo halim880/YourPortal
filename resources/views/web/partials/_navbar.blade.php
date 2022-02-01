@@ -17,16 +17,18 @@
             <!-- left menu -->
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item mx-lg-1">
-                    <a class="nav-link active" href="">Home</a>
+                    <a class="nav-link
+                    {{ Route::is('/') ? 'active' : '' }}
+                    " href="{{url('/')}}">Home</a>
                 </li>
                 <li class="nav-item mx-lg-1">
-                    <a class="nav-link" href="">Support</a>
+                    <a class="nav-link {{ Route::currentRouteNamed('support') ? 'active' : '' }}" href="">Support</a>
                 </li>
                 <li class="nav-item mx-lg-1">
-                    <a class="nav-link" href="{{route('web.faq')}}">FAQs</a>
+                    <a class="nav-link {{ Route::currentRouteNamed('web.faq') ? 'active' : '' }}" href="{{route('web.faq')}}">FAQs</a>
                 </li>
                 <li class="nav-item mx-lg-1">
-                    <a class="nav-link" href="{{route('web.contact')}}">Contact</a>
+                    <a class="nav-link {{ Route::currentRouteNamed('web.contact') ? 'active' : '' }}" href="{{route('web.contact')}}">Contact</a>
                 </li>
                 <li class="nav-item mx-lg-1">
                     @guest

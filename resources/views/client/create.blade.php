@@ -1,4 +1,4 @@
-@extends('new_layout.app')
+@extends('layouts.frontend.app')
 @section('content')
         <!-- Registration Form Section -->
         <section id="bussiness_registration">
@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="TIN">TIN</label>
-                                    <input type="text" class="form-control" id="TIN" required name="TIN">
+                                    <input type="number" class="form-control" id="TIN" required name="TIN">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="password">Password</label>

@@ -23,7 +23,7 @@
                       
                     @if ($members->count()<1)
                     <tr>
-                        <td colspan="3" class="text-center"><b>No member is registered yet</b></td>
+                        <td colspan="5" class="text-center"><b>No member is registered yet</b></td>
                     </tr>
                     @endif
                       @foreach ($members as $member)
@@ -35,9 +35,8 @@
                               <td>{{$member->getCurrentPackageName()}}</td>
                               <td>{{$member->subscription->expireDate($xDate)}}</td>
                               <td>{{$member->subscription->remainingDays($xDate)}}</td>
-                              {{-- <td>Not counted</td> --}}
                               <td>
-                                  <a href="" class="btn btn-primary">View</a>
+                                  <a href="{{route('system_admin.member.show', $member)}}" class="btn btn-primary">View</a>
                               </td>
                           </tr>
                       @endforeach

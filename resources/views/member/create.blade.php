@@ -37,23 +37,24 @@
                               <input type="text" class="form-control" id="phonenumber" required name="member_phone" value="{{old('member_phone')}}">
                           </div>
                           <div class="form-group mb-3">
-                            <label for="subscription_type">Choose Subscription type</label>
-                            <select class="form-select" name="subscription_name" id="subscription_type">
+                            <label for="subscription_type">Choose Package</label>
+                            <select class="form-select" name="package_id" id="subscription_type">
                                 @foreach ($packages as $package)
-                                <option value="{{$package}}" @if (makeSlug($package) == "free-trial") selected @endif>{{$package}}</option>
+                                <option value="{{$package->id}}" @if ($package->name =='Free Trial') selected @endif>{{$package->name}}</option>
                                 @endforeach
                               </select>
                             </div>
                             <div class="form-group mb-3">
                               <label for="plan_type">Choose Plan</label>
-                              <select class="form-select" name="plan_name" id="plan_type">
-                                  @foreach ($renewals as $renewal)
-                                  <option value="{{$renewal}}">{{$renewal}}</option>
+                              <select class="form-select" name="plan_id" id="plan_type">
+                                  @foreach ($plans as $plan)
+                                  <option value="{{$plan->id}}">{{$plan->name}}</option>
                                   @endforeach
                                 </select>
                               </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                       {{-- Admin Info --}}
                       <h3>Admin Information</h3>

@@ -16,9 +16,6 @@
 <!-- END PRICING -->
 @include('web.partials._pricing')
 
-<!-- START FAQ -->
-@include('web.partials._faqs')
-<!-- END FAQ -->
 
 
 <!-- START CONTACT -->

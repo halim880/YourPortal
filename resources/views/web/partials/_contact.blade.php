@@ -12,10 +12,10 @@
 
         <div class="row align-items-center mt-2">
             <div class="col-md-4">
-                <p class="text-muted"><span class="fw-bold">Customer Support:</span><br> <span class="d-block mt-1">+1 234 56 7894</span></p>
-                <p class="text-muted mt-4"><span class="fw-bold">Email Address:</span><br> <span class="d-block mt-1">info@gmail.com</span></p>
-                <p class="text-muted mt-4"><span class="fw-bold">Office Address:</span><br> <span class="d-block mt-1">4461 Cedar Street Moro, AR 72368</span></p>
-                <p class="text-muted mt-4"><span class="fw-bold">Office Time:</span><br> <span class="d-block mt-1">9:00AM To 6:00PM</span></p>
+                <p class="text-muted"><span class="fw-bold">Customer Support:</span><br> <span class="d-block mt-1">+44 77217 44873</span></p>
+                <p class="text-muted mt-4"><span class="fw-bold">Email Address:</span><br> <span class="d-block mt-1">support@yourportal.uk</span></p>
+                <p class="text-muted mt-4"><span class="fw-bold">Office Address:</span><br> <span class="d-block mt-1">Somerville Road, Romford, Essex, RM6 5BD.</span></p>
+                <p class="text-muted mt-4"><span class="fw-bold">Office Time:</span><br> <span class="d-block mt-1">Hours: 24/7 online</span></p>
             </div>
 
             <div class="col-md-8">
